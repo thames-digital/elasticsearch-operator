@@ -3,7 +3,7 @@
 
 .PHONY: all build container push clean test
 
-TAG ?= 0.4.0
+TAG ?= 0.4.2
 PREFIX ?= upmcenterprises
 pkgs = $(shell go list ./... | grep -v /vendor/ | grep -v /test/)
 # go source files, ignore vendor directory

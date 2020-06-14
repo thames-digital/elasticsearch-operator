@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "elasticsearch-operator.name" . }}
@@ -8,6 +8,10 @@ metadata:
     release: {{ .Release.Name }}
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: {{ template "elasticsearch-operator.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
@@ -40,6 +44,10 @@ spec:
           timeoutSeconds: 5
         resources:
 {{ toYaml .Values.resources | indent 10 }}
+{{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+{{- end }}
 {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ .Values.image.pullSecret }}
