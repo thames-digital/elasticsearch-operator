@@ -28,7 +28,10 @@ spec:
 {{- end }}
   master-volume-size: {{ .Values.masterVolumeSize }}
   data-volume-size: {{ .Values.dataVolumeSize }}
-  java-options: {{ .Values.javaOpts }}
+  master-java-options: {{ .Values.masterJavaOpts }}
+  client-java-options: {{ .Values.clientJavaOpts }}
+  data-java-options: {{ .Values.dataJavaOpts }}
+
 {{- if .Values.image.pullSecret }}
   image-pull-secrets:
     - name: {{ .Values.image.pullSecret }}
